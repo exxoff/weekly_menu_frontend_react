@@ -8,7 +8,11 @@ module.exports = {
       mono: ["ui-monospace", "SFMono-Regular"],
       body: ["Montserrat"],
     },
-    extend: {},
+    extend: {
+      minWidth: {
+        80: "20rem",
+      },
+    },
   },
   variants: {
     extend: {},

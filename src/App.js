@@ -1,30 +1,33 @@
+import { useState, useEffect } from "react";
 import "./App.css";
-import axios from "axios";
 import { Header } from "./components/Header";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import { TodayMenu } from "./components/TodayMenu";
 
 function App() {
-  const { REACT_APP_API_URL, REACT_APP_API_KEY } = process.env;
+  const [isLoading, setLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const getData = async () => {
-    try {
-      const d = await axios.get(`${REACT_APP_API_URL}/categories/12/recipes`, {
-        headers: {
-          Authorization: `Bearer ${REACT_APP_API_KEY}`,
-        },
-      });
-      console.log(d.data.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  getData();
-  return (
+  return isLoading ? (
+    "Loading..."
+  ) : (
     <>
       <div className="App">
         <Header />
 
-        <div className="bg-gray-100 flex"></div>
+        <div className="bg-gray-100 max-h-screen">
+          <div className="p-5 flex flex-col justify-center sm:flex-row">
+            {/* TODO: Calendar grows on y axis when today's menu has many items */}
+            <Calendar
+              className="text-xs m-2 shadow-lg"
+              showWeekNumbers
+              onChange={setSelectedDate}
+              value={selectedDate}
+            />
+            <TodayMenu date={selectedDate} />
+          </div>
+        </div>
       </div>
     </>
   );
