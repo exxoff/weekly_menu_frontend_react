@@ -11,7 +11,10 @@ export const Recipe = ({ recipe, remRec }) => {
     return <div>No</div>;
   }
   console.log("FFF", recipe);
-  const hasLink = recipe.comment ? false : true;
+  let hasLink = false;
+  if (recipe.link && recipe.link.length > 1) {
+    hasLink = true;
+  }
   const mt = !recipe.comment ? 3 : 2;
 
   const onLinkClickHandler = () => {
@@ -31,7 +34,7 @@ export const Recipe = ({ recipe, remRec }) => {
     <div className="flex flex-row mt-3 ml-3">
       <div className="flex justify-center items-center">
         {!recipe.image_url ? (
-          <div className="w-12 h-12 rounded-full flex m-2 bg-purple-600 text-2xl  text-white font-bold font-body justify-center items-center">
+          <div className="w-8 h-7 rounded-full flex m-2 bg-purple-600 text-2xl  text-white font-bold font-body justify-center items-center">
             {recipe.name.charAt(0)}
           </div>
         ) : (
@@ -43,7 +46,7 @@ export const Recipe = ({ recipe, remRec }) => {
         )}
       </div>
       <div className="flex flex-col">
-        <div className={`text-lg font-semibold font-body mx-2 mt-${mt}`}>
+        <div className={`text-m font-semibold font-body mx-2 mt-${mt}`}>
           {recipe.name}
         </div>
         <div className="text-sm text-gray-600 font-body mx-2 mt-0">
