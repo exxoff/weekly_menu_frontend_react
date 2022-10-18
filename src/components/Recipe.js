@@ -34,7 +34,7 @@ export const Recipe = ({ recipe, remRec }) => {
     <div className="flex flex-row mt-3 ml-3">
       <div className="flex justify-center items-center">
         {!recipe.image_url ? (
-          <div className="w-8 h-7 rounded-full flex m-2 bg-purple-600 text-2xl  text-white font-bold font-body justify-center items-center">
+          <div className="w-8 h-8 rounded-full flex m-2 bg-purple-600 text-2xl  text-white font-bold font-body justify-center items-center">
             {recipe.name.charAt(0)}
           </div>
         ) : (

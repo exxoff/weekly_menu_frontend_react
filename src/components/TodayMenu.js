@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -24,14 +24,15 @@ export const TodayMenu = ({ date }) => {
     },
   };
 
+  const addRecipeTomenu = async () => {
+    alert("Yo! Add a recipe!");
+  };
+
   const removeRecipe = async (recipe_id) => {
     let req = undefined;
     try {
       console.log(`Deleting recipe ${recipe_id} from menu ${currentMenu.id}`);
-      const payload = {
-        headers: headers,
-        data: { recipe_id: recipe_id },
-      };
+
       req = await axios.delete(
         `${REACT_APP_API_URL}/menus/${currentMenu.id}/${recipe_id}`,
         headers
@@ -44,11 +45,13 @@ export const TodayMenu = ({ date }) => {
       setRecipes(newRecipes);
     } catch (err) {
       console.log(err);
+      // TODO: A better dialog box needed.
       alert(`Unable to remove recipe from menu. ${err}`);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     setRecipes([]);
     setMenuComment(null);
     setCurrentMenu(null);
@@ -70,7 +73,7 @@ export const TodayMenu = ({ date }) => {
   }, [date]);
 
   return (
-    <div className="bg-white ml-7 my-3 flex-initial w-auto flex-grow shadow-lg">
+    <div className="bg-white ml-7 my-3 flex-initial w-auto flex-grow shadow-lg relative">
       <div className=" bg-purple-700 text-base p-1 text-white flex flex-row ">
         <div>
           <FontAwesomeIcon className="ml-2 mr-4" icon={faCalendarAlt} />
@@ -95,6 +98,11 @@ export const TodayMenu = ({ date }) => {
             <Recipe remRec={removeRecipe} key={recipe.id} recipe={recipe} />
           ))
         )}
+      </div>
+      <div
+        className="bg-blue-700 w-12 h-12 rounded-full flex m-2 text-2xl  text-white font-bold font-body justify-center items-center absolute right-1 bottom-1 cursor-pointer"
+        onClick={addRecipeTomenu}>
+        +
       </div>
     </div>
   );
